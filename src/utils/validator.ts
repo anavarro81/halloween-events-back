@@ -1,10 +1,11 @@
 import Joi from "joi";
-// import {EventPayload} from '../types/event'
+import {EventPayload} from '../types/Event'
+import {HttpError} from '../errors/HttpError'
 
 const EventSchema = Joi.object({
 
     title: Joi.string().required(),
-    data: Joi.date().required(),
+    date: Joi.date().required(),
     image: Joi.string().required(),
     location: Joi.string().required(),
     description: Joi.string().required(),
@@ -15,15 +16,22 @@ const EventSchema = Joi.object({
 })
 
 
-// export const validateEvent =  (payload: EventPayload) => {
+export const validateEvent =  (payload: EventPayload) => {
 
-//     const  {error, value} = EventSchema.validate(payload, {abortEarly: false})
+    const  {error, value} = EventSchema.validate(payload, {abortEarly: false})
 
-//     if (error) {
+    console.log ('error al validar ', error)
 
-//     } else {
-//         return value 
-//     }
+    if (error) {
+        const errors = error.details.map(e => e.message).join(", ")
 
-// }
+        console.log('errors >> ', errors)
+
+        throw new HttpError(errors, 400)
+
+    } 
+    return value 
+    
+
+}
 

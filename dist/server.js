@@ -11,13 +11,17 @@ const bd_1 = __importDefault(require("./config/bd"));
 const cors_1 = __importDefault(require("cors"));
 const cors_2 = require("./config/cors");
 const helmet_1 = __importDefault(require("helmet"));
+const error_middleware_1 = __importDefault(require("./src/middlewares/error.middleware"));
+const event_route_1 = __importDefault(require("./src/routes/event.route"));
 const app = (0, express_1.default)();
 (0, bd_1.default)();
 app.use((0, cors_1.default)(cors_2.corsConfig));
 app.use((0, helmet_1.default)());
 // Permite leer los datos que vienen de un formulario
 app.use(express_1.default.json());
+app.use('/event', event_route_1.default);
 app.use('/', (req, res) => {
     res.send('Server is running...');
 });
+app.use(error_middleware_1.default);
 exports.default = app;
