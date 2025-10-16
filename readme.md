@@ -16,6 +16,15 @@ Las personas se podran apuntar y consultar en todo momento la última hora de ca
 
 ---
 
+## Data 
+
+title
+date
+image
+location
+description
+attendees
+
 ## 📁 Estructura del proyecto
 
 ```
