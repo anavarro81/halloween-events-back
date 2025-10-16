@@ -7,6 +7,8 @@ import connectBD from './config/bd'
 import cors from 'cors';
 import {corsConfig} from './config/cors'
 import helmet from 'helmet';
+import ErrorMiddleware from './src/middlewares/error.middleware'
+
 const app = express()
 
 connectBD();
@@ -24,6 +26,6 @@ app.use('/', (req, res) => {
 
 
 
-
+app.use(ErrorMiddleware)
 
 export default app; 
