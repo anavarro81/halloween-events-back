@@ -13,15 +13,24 @@ export const newEventService = async (event: EventPayload) => {
 }
 
 export const loadEvents = async (events: EventPayload[]) => {
-
     try {        
-        return await Event.insertMany(events)       
-        
-    } catch (error) {
-        
+        return await Event.insertMany(events)               
+    } catch (error: any) {        
         console.error(error)
-        throw new HttpError('Error al insertar los eventos ', 500)
+        throw new HttpError (error.message ? error.message : "Error al cargar los eventos ", 500)        
+    }
+}
+
+export const getAllEvents = async () => {
+
+    try {
+
+        return await Event.find({})
         
+    } catch (error: any) {
+      console.error(error)  
+      throw new HttpError (error.message ? error.message : "Error al obtener los eventos ", 500)
     }
 
 }
+

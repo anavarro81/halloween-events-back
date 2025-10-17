@@ -16,11 +16,6 @@ export const newEvent = async (req: Request, res: Response, next: NextFunction):
 
 }
 
-export const getAllEvents = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-
-  
-
-}
 
 export const loadEvents = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
 
@@ -36,3 +31,15 @@ export const loadEvents = async (req: Request, res: Response, next: NextFunction
 
 }
 
+export const getAllEvents = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+    try {
+
+      const events = await EventServices.getAllEvents()
+      res.status(200).json(events)
+      
+    } catch (error) {
+      next(error)
+    }
+
+}
