@@ -11,3 +11,17 @@ export const newEventService = async (event: EventPayload) => {
     }
 
 }
+
+export const loadEvents = async (events: EventPayload[]) => {
+
+    try {        
+        return await Event.insertMany(events)       
+        
+    } catch (error) {
+        
+        console.error(error)
+        throw new HttpError('Error al insertar los eventos ', 500)
+        
+    }
+
+}
