@@ -34,3 +34,16 @@ export const getAllEvents = async () => {
 
 }
 
+export const getEventById = async (id: string) => {
+
+    try {
+
+        return await Event.findById(id)
+        
+    } catch (error: any) {
+        console.error(error)  
+        throw new HttpError (error.message ? error.message : "Error al obtener los eventos ", 500)
+    }
+
+}
+

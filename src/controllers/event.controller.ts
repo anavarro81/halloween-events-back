@@ -1,6 +1,7 @@
 import {Response, Request, NextFunction} from 'express'
 import {validateEvent} from '../utils/validator'
 import  * as EventServices from '../services/event.service'
+import {HttpError} from '../errors/HttpError'
 
 export const newEvent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
@@ -43,3 +44,26 @@ export const getAllEvents = async(req: Request, res: Response, next: NextFunctio
     }
 
 }
+
+export const getEventById = async(req: Request, res: Response, next: NextFunction): Promise<void> => { 
+
+  try {
+
+    const {id} = req.params
+
+    if (!id) {
+      throw new HttpError("id no informado", 400)      
+    }
+
+    const event = await EventServices.getEventById(id)
+
+    res.status(200).json(event)
+
+    
+  } catch (error) {
+    console.error(error)
+    next(error)
+
+  }
+}
+
