@@ -5,23 +5,34 @@ import  * as EventServices from '../services/event.service'
 export const newEvent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     try {
-
-        console.log('newEvent')
         
         const EventPaylod = validateEvent(req.body)
-
-        console.log('EventPaylod ', EventPaylod)
-
         const createdEvent = await EventServices.newEventService(EventPaylod)
-
-        console.log('createdEvent ', createdEvent)
-
-        res.status(201).json(createdEvent)
-
-        
+        res.status(201).json(createdEvent)        
         
     } catch (error) {
       next(error)  
     }
 
 }
+
+export const getAllEvents = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+  
+
+}
+
+export const loadEvents = async (req: Request, res: Response, next: NextFunction): Promise<void> => { 
+
+
+  try {
+
+    const events = await EventServices.loadEvents(req.body)
+    res.status(201).json(events)
+    
+  } catch (error) {
+    next(error)
+  }
+
+}
+
